@@ -1,0 +1,120 @@
+<html ng-app="Ws">
+	<head>
+		<title>Workshop 2 - Ch'ar Pente</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+
+  <body ng-controller="homeController">
+    <nav class="navbar navbar-default navbar-fixed-top" id="topbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>
+                <span class="navbar-brand" id="logo">Ch'ar Pente</span>
+            </div>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#Board">Jeu</a></li>
+                    <li><a href="#Rules">Rules</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="play" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" id="section-title">
+                  <h1>Plateau de jeu</h1>
+                </div>
+								<div class="col-lg-12" id="section-content">
+									<p>Temps écoulé depuis le début : <span id="chrono">0</span> secondes.</p>
+									<p>Temps restant pour jouer son tour : <span id="decompte">10</span> secondes.</p>
+								</div>
+                <div class="col-lg-12" id="back-board">
+                  <div id="board"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+		<section id="data">
+			<div class="container">
+					<div class="row">
+							<div class="col-md-8 col-md-offset-2" id="section-title">
+								<table border=1>
+									<div ng-repeat="data in mydata">
+										<h4>Données de la partie</h4>
+										<!-- <p>Tour : {{data.status}} (0 : Joueur1 , 1 : Joueur2)</p> -->
+										<p>Tenailles J1 : {{data.nbTenaillesJ1}}</p>
+										<p>Tenailles J2 : {{data.nbTenaillesJ2}}</p>
+										<p>Dernier coup : {{data.dernierCoupX}}, {{data.dernierCoupY}}</p>
+										<p>Prolongation : {{data.prolongation}}</p>
+										<p>Fin de la partie : {{data.finPartie}}</p>
+										<p>Détail fin de partie : {{data.detailFinPartie}}</p>
+										<p>Tour numéro : {{data.numTour}}</p>
+										<p>Réponse HTTP : {{data.code}}</p>
+										<br />
+										<h4>Tableau</h4>
+										<div ng-repeat="tab in data.tableau">
+											Ligne : {{tab.ligne}}
+											Colonne : {{tab.colonne}}
+											Case : {{tab.case}}
+										</div>
+									</div>
+								</table>
+							</div>
+		</section>
+  </body>
+
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="js/angular-resource.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<!-- Chrono -->
+	<script type="text/javascript">
+	// initialise le temps
+	var cptDecompte = 10;
+	var cptChrono = 0;
+
+	timer = setInterval(function(){
+	    if(cptDecompte>0) // si on a pas encore atteint la fin
+	    {
+	        --cptDecompte; // décrémente le compteur
+	        var decompte = document.getElementById("decompte"); // récupère l'id
+	        var old_contenu = decompte.firstChild; // stock l'ancien contenu
+	        decompte.removeChild(old_contenu); // supprime le contenu
+	        var texte = document.createTextNode(cptDecompte); // crée le texte
+	        decompte.appendChild(texte); // l'affiche
+	    }
+	    else // sinon brise la boucle
+	    {
+	        clearInterval(timer);
+	    }
+	}, 1000);
+
+	timer2 = setInterval(function(){
+	    if(cptChrono<600) // si on a pas encore atteint la fin
+	    {
+	        ++cptChrono; // décrémente le compteur
+	        var chrono = document.getElementById("chrono"); // récupère l'id
+	        var old_contenu = chrono.firstChild; // stock l'ancien contenu
+	        chrono.removeChild(old_contenu); // supprime le contenu
+	        var texte = document.createTextNode(cptChrono); // crée le texte
+	        chrono.appendChild(texte); // l'affiche
+	    }
+	    else // sinon brise la boucle
+	    {
+	        clearInterval(timer2);
+	    }
+	}, 1000);
+
+	</script>
+</html>
