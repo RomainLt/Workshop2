@@ -1,0 +1,9 @@
+{
+  "name": "workshop2",
+  "version": "1.0.0",
+  "description": "IA for game gomoku",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
