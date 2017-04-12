@@ -1,0 +1,37 @@
+#play{
+  margin-top: 50px;
+  text-align: center;
+}
+
+#rules{
+  margin-top: 50px;
+  text-align: center;
+}
+
+#plateau {
+  text-align: center;
+  margin: auto;
+  border: 1px black;
+  background-color: grey;
+}
+#plateau td {
+    width: 30px;
+    height: 30px;
+    margin: 0px;
+    padding: 0px;
+    border: 2px solid black;
+}
+#plateau td.joueur1 {
+    background: url("../img/circle-white.png") no-repeat center center;
+    background-size: contain;
+    z-index: 1;
+}
+#plateau td.joueur2 {
+  background: url("../img/circle-black.png") no-repeat center center;
+  background-size: contain;
+  z-index: 1;
+}
+
+#data{
+  padding: 30px 0px;
+}
