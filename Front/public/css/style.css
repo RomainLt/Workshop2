@@ -1,3 +1,12 @@
+#play {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#section-title {
+    margin: 20px;
+}
+
 #plateau {
     text-align: center;
     margin: auto;
@@ -11,6 +20,10 @@
     margin: 0px;
     padding: 0px;
     border: 2px solid #1E1E1E;
+}
+
+#plateau td.joueur0 {
+    background: transparent;
 }
 
 #plateau td.joueur1 {

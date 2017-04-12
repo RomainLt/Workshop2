@@ -33,10 +33,10 @@
                 <div class="col-lg-12" id="section-title">
                     <h1>Plateau de jeu</h1>
                 </div>
-                <div class="col-lg-12" id="section-content">
+                <!--<div class="col-lg-12" id="section-content">
                     <p>Temps écoulé depuis le début : <span id="chrono">0</span> secondes.</p>
                     <p>Temps restant pour jouer son tour : <span id="decompte">10</span> secondes.</p>
-                </div>
+                </div>-->
                 <div class="col-lg-12" id="back-board">
                     <div id="board"></div>
                 </div>
@@ -44,33 +44,30 @@
         </div>
     </section>
 
-    <!-- <section id="data">
-			<div class="container">
-					<div class="row">
-							<div class="col-md-8 col-md-offset-2" id="section-title">
-								<table border=1>
-									<div ng-repeat="data in mydata">
-										<h4>Données de la partie</h4>
-										<p>Tour : {{data.status}} (0 : Joueur1 , 1 : Joueur2)</p>
-										<p>Tenailles J1 : {{data.nbTenaillesJ1}}</p>
-										<p>Tenailles J2 : {{data.nbTenaillesJ2}}</p>
-										<p>Dernier coup : {{data.dernierCoupX}}, {{data.dernierCoupY}}</p>
-										<p>Prolongation : {{data.prolongation}}</p>
-										<p>Fin de la partie : {{data.finPartie}}</p>
-										<p>Détail fin de partie : {{data.detailFinPartie}}</p>
-										<p>Tour numéro : {{data.numTour}}</p>
-										<p>Réponse HTTP : {{data.code}}</p>
-										<br />
-										<h4>Tableau</h4>
-										<div ng-repeat="tab in data.tableau">
-											X : {{tab.ligne}}
-											Y : {{tab.colonne}}
-											Case : {{tab.case}}
-										</div>
-									</div>
-								</table>
-							</div>
-		</section> -->
+    <section id="data">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2" id="section-title">
+                    <table border=1>
+                        <div>
+                            <h4>Données de la partie</h4>
+                            <!--<p>Tour : {{data.status}} (0 : Joueur1 , 1 : Joueur2)</p>-->
+                            <p>Tenailles J1 : {{mydata.nbTenaillesJ1}}</p>
+                            <p>Tenailles J2 : {{mydata.nbTenaillesJ2}}</p>
+                            <p>Dernier coup : {{mydata.dernierCoupX}}, {{mydata.dernierCoupY}}</p>
+                            <p>Prolongation : {{mydata.prolongation}}</p>
+                            <p>Fin de la partie : {{mydata.finPartie}}</p>
+                            <p>Détail fin de partie : {{mydata.detailFinPartie}}</p>
+                            <p>Tour numéro : {{mydata.numTour}}</p>
+                            <p>Réponse HTTP : {{mydata.code}}</p>
+                            <!--<h4>Tableau</h4>
+                            <div ng-repeat="tab in data.tableau">
+                                X : {{tab.ligne}} Y : {{tab.colonne}} Case : {{tab.case}}
+                            </div>-->
+                        </div>
+                    </table>
+                </div>
+    </section>
 </body>
 
 <!-- Scripts -->
@@ -80,7 +77,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Chrono -->
-<script type="text/javascript">
+<!--<script type="text/javascript">
     // initialise le temps
     var cptDecompte = 10;
     var cptChrono = 0;
@@ -114,6 +111,6 @@
             clearInterval(timer2);
         }
     }, 1000);
-</script>
+</script>-->
 
 </html>
