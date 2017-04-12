@@ -44,7 +44,7 @@ router.get('/connect/:joueurName', function (req, res) {
             numJoueur: player.numPlayer
         };
     } else {
-        var json.errorAccess = "Non autorise ou la partie est deja en cours";
+        json.errorAccess = "Non autorise ou la partie est deja en cours";
     }
 
     res.writeHead(200, {
@@ -93,14 +93,17 @@ router.get('/turn/:idJoueur', function (req, res) {
     var json = {};
     
     if(boardClass.getPlayerTurn === player.numPlayer){
-        res.writeHead(1, {
-            'Content-Type': 'text/html'
-        });
+        json = {
+            tableau: boardClass.getBoard,
+            status: 1,
+            numTour:1
+        }
     }else{
-        res.writeHead(0, {
+        
+    }
+    res.writeHead(200, {
             'Content-Type': 'text/html'
         });
-    }
     
     res.end(JSON.stringify(json));
 });
