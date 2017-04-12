@@ -7,28 +7,15 @@ app.controller('homeController',function($scope,$http,$q,$timeout){
 
   var defer = $q.defer();
 
-  var list = new Array();
+  var list;
 
   var b = 0;
 
   var timer = $timeout( function refresh(){
-    $http.get('./test.json').success(function(response){
-      //console.log(response);
+    $http.get('./tableau.json').success(function(response){
       $scope.mydata = response;
-      //console.log($scope.mydata);
-
-      var test = response[0].tableau;
-      //console.log(test);
-      for(tes of test){
-        //console.log(tes);
-        row = tes.ligne;
-        col = tes.colonne;
-        player = tes.case;
-        list[b] = [row,col,player];
-        b++;
-        //console.log(list);
-        //console.log(list.length);
-      }
+      console.log(response);
+      list = response;
       defer.resolve();
     });
 
@@ -70,34 +57,17 @@ app.controller('homeController',function($scope,$http,$q,$timeout){
         this.set(row,col,player);
       },
 
-      set: function(coups) {
-        if(player != 0){
-          var n = list.length;
-          var tab;
-          var c = 0;
-          var p = 0;
-
-          for(var i=0; i<n; i++){
-            tab = list[i];
-            r=tab[0];
-            c=tab[1];
-            p=tab[2];
-            //console.log(r,c,p);
-            if(p==0){
-              this.board[r][c];
-            }
-            else{
-              this.board[r][c].className = 'joueur' + p;
-            }
+      set: function() {
+        for(var i =0; i<19;i++){
+          for(var j =0; j<19;j++){
+            list[i][j];
+            this.board[i][j].className = 'joueur' + list[i][j];
           }
-          // this.board[r][c].className = 'joueur' + p;
-          // // On compte le coup
-          // this.coups++;
         }
       }
     }
     view.init(document.querySelector('#board'));
   });
-  timer = $timeout(refresh, 500);
-  }, 500);
+  timer = $timeout(refresh, 10000);
+}, 1000);
 });
