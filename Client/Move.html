@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl"> 
+<script src="ia.js"></script>
+<script>
+// recuperer le tableau 
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http.get('http://workshop2.cleverapps.io/turn')
+  .then(function(response) {
+      $scope.ch = response.data;
+      console.log($scope.ch);
+      $scope.tab=ch.tableau;
+      $scope.id=ch.idjoueur;
+// passer le tab au IA pour recuperer en retour le positionnement en suite y renvois au serveur 
+      $scope.NextMove = function ($tab){
+      	ia($tab)
+      	.then(function(reponse) {
+      $scope.move = response.data;
+
+ $http.post('http://workshop2.cleverapps.io/return', move, config)
+            .success(function (data) {
+                $scope.PostDataResponse = $scope.move;
+            };
+
+ NextMove.reset();
+ if($scope.id!=$scope.id){
+    NexteMove();
+ }
+
+ };
+  });
+});
+</script>
+
+</body>
+
+
+
