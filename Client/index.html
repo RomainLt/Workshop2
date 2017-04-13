@@ -1,0 +1,37 @@
+<html ng-app="Ws">
+
+<head>
+</head>
+
+<body ng-controller="MainController">
+    <p>Joueur :</p>
+    <form>
+        <input type="text" ng-model="test.x" placeholder="X" />
+        <input type="text" ng-model="test.y" placeholder="Y" />
+        <!--<input type="text" ng-model="test.id" placeholder="ID" />-->
+        <select name="select" ng-model="test.id">
+            <option value="9408">joueur 1</option>
+            <option value="bc8e">joueur 2</option>
+        </select>
+        <input type="submit" ng-click="play(test)" value="Send" />
+    </form>
+
+    <form>
+        <p>Qui doit jouer ?</p>
+        <select name="select" ng-model="who.id">
+            <option value="9408">joueur 1</option>
+            <option value="bc8e">joueur 2</option>
+        </select>
+        <input type="submit" ng-click="tour(who)" value="Send" />
+    </form>
+    <p>Résultat : {{mydata.status}}</p>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="app.js"></script>
+<script src="mainController.js"></script>
+<script src="service.js"></script>
+
+
+</html>

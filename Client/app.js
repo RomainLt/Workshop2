@@ -1,1 +1,1 @@
-angular.module('myApp', []);
+app = angular.module('Ws', []);
