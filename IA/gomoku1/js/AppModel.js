@@ -9,10 +9,10 @@ var AppModel = function() {
     this.matrix; // Матрица игрового поля 15х15. 0 - свободная клетка, 1 - крестик, 2 - нолик le board de jeu
     this.freeCells; // Количество свободных ячеек. В начале каждой игры = 225 , le nombre de cellule libre au debut du jeu 19x19= 361
     this.hashStep; // Хеш-массив потенциальных ходов
-    this.playing; // True - игра в процессе игры (пользователь может кликать на поле и т.д.) true pour dire que l'utilisateur peut cliquer 
+    this.playing; // True - игра в процессе игры (пользователь может кликать на поле и т.д.) true pour dire que l'utilisateur peut cliquer
     this.winLine; // Координаты победной линии coordonne de la ligne gagnante
     this.prePattern = [ // Шаблоны построения фигрур и их веса. Х в дальнейшем заменяется на крестик (1) или нолик (0), 0 - свободная ячейка
-        //{s: '0xx0', w: 100000} , // Modèles et leur figure la construction du poids. X ultérieurement remplacé par un croix (1) ou de l'orteil (0) 0 - cellule libre
+        //{s: 'x00x', w: 100000} , // Modèles et leur figure la construction du poids. X ultérieurement remplacé par un croix (1) ou de l'orteil (0) 0 - cellule libre
         {s: 'xxxxx', w: 99999}, // пять в ряд (финальная выигрышная линия) cinq dans une range c'est a dire ligne de gain final
         {s: '0xxxx0', w: 7000}, // Открытая четверка ouvert quatre
         {s: '0xxxx', w: 4000}, // Закрытая четверка verrouiller quatre
@@ -30,10 +30,9 @@ var AppModel = function() {
         {s: '0x0xx', w: 800},
         {s: 'xx0x0', w: 800},
         {s: 'x0xx0', w: 800},
-        {s: '0xx0', w: 100000}
-        //{s: 'xx0', w: 200}
-        //{s: 'x00x', w: 500}
-        
+        {s: '0xx0', w: 200}
+        //{s: 'x00x', w: 100000}
+
     ];
     this.pattern = [[], [], []]; // Массив шаблонов для Х и 0, генерируется из предыдущих шаблонов le tableau est generer a partir du model precedent
     this.patternWin = [0, /(1){5}/, /(2){5}/, /[01]*7[01]*/, /[02]*7[02]*/]; // Массив выигрышных шаблонов [1] и [2] и шаблон определения возможности поставить 5 в ряд c'est de exemple de model gagnant qui essaye voir si on doit mettre 5 pions sur une range
@@ -84,7 +83,7 @@ var AppModel = function() {
         this.matrix = [];
         this.winLine = [];
         this.hashStep = {9: {9: {sum: 0, attack: 1, defence: 0, attackPattern: 0, defencePattern: 0}}}; // первый шаг, если АИ играет за Х le premier pion jouer par l'intelligence artificiel
-        this.freeCells = this.size * this.size; // le nombre de cellule libre 
+        this.freeCells = this.size * this.size; // le nombre de cellule libre
         for (var n = 0; n < this.size; n++) {
             this.matrix[n] = [];
             for (var m = 0; m < this.size; m++) {
@@ -109,11 +108,11 @@ var AppModel = function() {
     };
 
     this.moveUser = function() { // Ход пользователя mouvement de lutilisateur
-        this.playing = false;    // Запрещаем кликать, пока идет расчет 
+        this.playing = false;    // Запрещаем кликать, пока идет расчет
         return this.move(this.n, this.m, false);
     };
 
-    this.moveAI = function() { // Ход АИ la progression de l'intelligence artificielle 
+    this.moveAI = function() { // Ход АИ la progression de l'intelligence artificielle
         this.playing = false;
         var n, m;
         var max = 0;
@@ -140,7 +139,7 @@ var AppModel = function() {
         this.matrix[n][m] = 2 - this.who; // Сохранение хода в матрице полей игры Enregistrement des progrès dans la matrice du champ de jeu
         this.who = !this.who; // Переход хода от Х к О, от О к Х la transition du x a se deplacer de 0 à X
         this.freeCells--;
-        var t = this.matrix[this.n][this.m]; // Далее идет проверка на выигрыш в результате этого хода: поиск 5 в ряд по 4 направлениям | — / \ A l'arrivée la victoire à la suite de ce mouvement: la recherche de 5 dans une série de 4 lignes | 
+        var t = this.matrix[this.n][this.m]; // Далее идет проверка на выигрыш в результате этого хода: поиск 5 в ряд по 4 направлениям | — / \ A l'arrivée la victoire à la suite de ce mouvement: la recherche de 5 dans une série de 4 lignes |
         var s = ['', '', '', ''];
         var nT = Math.min(this.n, 4);
         var nR = Math.min(this.size - this.m - 1, 4);
@@ -210,7 +209,7 @@ var AppModel = function() {
                         s = '';
                         for (var i = -4; i <= 4; i++) // Циклы перебора в радиусе 4 клеток от рассматриваемого хода (выбраннного в *1)
                             switch (j) { // Создание строк с текущим состоянием клеток по 4 направлениям, такого вида 000172222
-                                case 1:  //                         
+                                case 1:  //
                                     if (n + i >= 0 && n + i < this.size)
                                         s += (i === 0) ? '7' : this.matrix[n + i][m];
                                     break;
