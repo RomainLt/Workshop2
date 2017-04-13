@@ -9,9 +9,9 @@ app.controller('MainController', function($scope, service) {
 
         service.getPlay(x, y, id)
             .then(function success(response) {
-                console.log(response);
+                console.log(response.data);
             }, function error(res) {
-                console.log("Error : " + res.data);
+                console.log(res.data);
             });
     };
 
@@ -21,10 +21,21 @@ app.controller('MainController', function($scope, service) {
 
         service.getTurn(idJoueur)
             .then(function success(response) {
-                console.log(response);
+                console.log(response.data);
                 $scope.mydata = response.data;
             }, function error(res) {
-                console.log("Error : " + res.data);
+                console.log(res.data);
+            });
+    };
+
+    $scope.vider = function() {
+        service.getEmpty()
+            .then(function success(response) {
+                $scope.j1 = response.data.J1;
+                $scope.j2 = response.data.J2;
+                console.log(response.data);
+            }, function error(res) {
+                console.log(res.data);
             });
     };
 

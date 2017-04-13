@@ -9,22 +9,20 @@
         <input type="text" ng-model="test.x" placeholder="X" />
         <input type="text" ng-model="test.y" placeholder="Y" />
         <!--<input type="text" ng-model="test.id" placeholder="ID" />-->
-        <select name="select" ng-model="test.id">
-            <option value="9408">joueur 1</option>
-            <option value="bc8e">joueur 2</option>
-        </select>
+        <input type="text" ng-model="test.id" placeholder="ID" />
         <input type="submit" ng-click="play(test)" value="Send" />
     </form>
 
     <form>
         <p>Qui doit jouer ?</p>
-        <select name="select" ng-model="who.id">
-            <option value="9408">joueur 1</option>
-            <option value="bc8e">joueur 2</option>
-        </select>
+        <input type="text" ng-model="who.id" placeholder="ID" />
         <input type="submit" ng-click="tour(who)" value="Send" />
     </form>
     <p>Résultat : {{mydata.status}}</p>
+    <br>
+    <input type="submit" ng-click="vider()" value="Vider le plateau" />
+    <p>Joueur 1 : {{j1.idPlayer}} (blanc)</p>
+    <p>Joueur 2 : {{j2.idPlayer}} (noir)</p>
 
 </body>
 

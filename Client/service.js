@@ -36,6 +36,13 @@ app.factory('service', function($http) {
             });
             // $a = $http.get('http://workshop2.cleverapps.io/turn/:idJoueur');
             // return ia(a);
+        },
+        getEmpty: function() {
+            return $http({
+                method: 'GET',
+                url: baseUrl + '/viderPlateau',
+                headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+            });
         }
     }
 });
