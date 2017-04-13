@@ -1,32 +1,74 @@
-app.controller('MainController', function($scope, service) {
-    $scope.commandes = {};
+app.controller('MainController', function($scope, service, $interval) {
+    var idJoueur;
 
-    $scope.play = function(test) {
-        var x = test.x;
-        var y = test.y;
-        var id = test.id;
-        console.log(x, y, id);
+    model = new AppModel();
+    // model = new AppModel();
+    // view = new AppView(model);
+    // controller = new AppController(model, view);
 
-        service.getPlay(x, y, id)
+    var currentPlayer;
+    var firstmove = false;
+
+    $scope.connect = function(joueur) {
+        var name = joueur.name;
+
+        service.getConnect(name)
             .then(function success(response) {
-                console.log(response.data);
-            }, function error(res) {
-                console.log(res.data);
-            });
-    };
+                    $scope.dataCo = response.data;
+                    idJoueur = response.data.idJoueur; //ID du joueur
+                    console.log(idJoueur);
+                    $interval(test, 5000);
+                },
+                function error(res) {
+                    console.log(res.data);
+                });
+    }
 
-    $scope.tour = function(who) {
-        var idJoueur = who.id;
-        console.log(idJoueur);
+    function test() {
+        console.log("boucle");
+        currentPlayer = null;
+        var tour = 0;
+        var tab;
 
         service.getTurn(idJoueur)
             .then(function success(response) {
+                console.log("turn " + idJoueur);
                 console.log(response.data);
-                $scope.mydata = response.data;
-            }, function error(res) {
+                tour = response.data.status;
+                console.log(tour);
+                if (tour == 1) {
+                    currentPlayer = idJoueur;
+                    tab = response.data.tableau;
+                    if (firstmove === false) {
+                        model.setStartData(2, tab);
+                        firstmove = true;
+                    }
+                    var res = nextMove(tab);
+
+                    x = res.m;
+                    y = res.n;
+                    id = idJoueur;
+                    //Joue
+                    service.getPlay(x, y, id)
+                        .then(function success(response) {
+                            //Vérification du code
+                            console.log(response.data);
+                        }, function error(res) {
+                            //Vérification du code
+                            console.log(res.data);
+                        });
+                }
+            }),
+            function error(res) {
                 console.log(res.data);
-            });
-    };
+            }
+    }
+
+    function nextMove(tab) {
+        //Récupération du coup à jouer par l'IA puis appel de goPlay
+        var res = model.moveAI(tab);
+        return (res);
+    }
 
     $scope.vider = function() {
         service.getEmpty()
@@ -38,22 +80,4 @@ app.controller('MainController', function($scope, service) {
                 console.log(res.data);
             });
     };
-
-    // $scope.getUsers = function() {
-    //     Service.getUsers(joueurName)
-    //         .success(function(response) {
-    //             $scope.error = null;
-    //         }).error(function() {
-    //             $scope.error = 'Server communication error';
-    //         });
-    // };
-
-    // $scope.getTurn = function() {
-    //     Service.getTurn()
-    //         .success(function(response) {
-    //             $scope.error = null;
-    //         }).error(function(data, status) {
-    //             $scope.error = 'IA communication error';
-    //         });
-    // };
 });

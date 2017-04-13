@@ -1,35 +1,56 @@
 <html ng-app="Ws">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Client IA</title>
 </head>
 
 <body ng-controller="MainController">
-    <p>Joueur :</p>
+    <input type="text" ng-model="joueur.name" placeholder="X" />
+    <input type="submit" ng-click="connect(joueur)" value="Se connecter" />
+    <p>idJoueur : {{dataCo.idJoueur}}</p>
+    <p>Code HTTP : {{dataCo.code}}</p>
+    <p>nomJoueur : {{dataCo.nomJoueur}}</p>
+    <p>numJoueur : {{dataCo.numJoueur}}</p>
+
+    <br>
+    <!--<p>Joueur :</p>
     <form>
         <input type="text" ng-model="test.x" placeholder="X" />
         <input type="text" ng-model="test.y" placeholder="Y" />
         <!--<input type="text" ng-model="test.id" placeholder="ID" />-->
-        <input type="text" ng-model="test.id" placeholder="ID" />
-        <input type="submit" ng-click="play(test)" value="Send" />
-    </form>
+    <!--<input type="text" ng-model="test.id" placeholder="ID" />
+    <input type="submit" ng-click="play(test)" value="Send" />
+    </form>-->
 
-    <form>
+    <!--<form>
         <p>Qui doit jouer ?</p>
         <input type="text" ng-model="who.id" placeholder="ID" />
         <input type="submit" ng-click="tour(who)" value="Send" />
-    </form>
-    <p>Résultat : {{mydata.status}}</p>
-    <br>
+    </form>-->
+
+    <!--<p>Résultat : {{mydata.status}}</p>-->
+
     <input type="submit" ng-click="vider()" value="Vider le plateau" />
     <p>Joueur 1 : {{j1.idPlayer}} (blanc)</p>
     <p>Joueur 2 : {{j2.idPlayer}} (noir)</p>
 
 </body>
 
+<!--IA FILES -->
+<script src="gomoku1/js/AppModel.js"></script>
+<script src="gomoku1/js/lib.js"></script>
+<!--<script src="gomoku1/js/App.js"></script>
+<script src="gomoku1/js/AppView.js"></script>
+<script src="gomoku1/js/AppController.js"></script>
+<script src="gomoku1/js/MouseController.js"></script>-->
+
+<!--Scripts-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 <script src="app.js"></script>
 <script src="mainController.js"></script>
 <script src="service.js"></script>
-
 
 </html>
