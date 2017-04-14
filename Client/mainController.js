@@ -2,11 +2,6 @@ app.controller('MainController', function($scope, service, $interval) {
     var idJoueur;
 
     model = new AppModel();
-    // model = new AppModel();
-    // view = new AppView(model);
-    // controller = new AppController(model, view);
-
-    var currentPlayer;
     var firstmove = false;
 
     $scope.connect = function(joueur) {
@@ -17,16 +12,15 @@ app.controller('MainController', function($scope, service, $interval) {
                     $scope.dataCo = response.data;
                     idJoueur = response.data.idJoueur; //ID du joueur
                     console.log(idJoueur);
-                    $interval(test, 5000);
+                    $interval(boucleJouer, 500);
                 },
                 function error(res) {
                     console.log(res.data);
                 });
     }
 
-    function test() {
+    function boucleJouer() {
         console.log("boucle");
-        currentPlayer = null;
         var tour = 0;
         var tab;
 
@@ -40,7 +34,7 @@ app.controller('MainController', function($scope, service, $interval) {
                     currentPlayer = idJoueur;
                     tab = response.data.tableau;
                     if (firstmove === false) {
-                        model.setStartData(2, tab);
+                        model.setStartData(1, tab);
                         firstmove = true;
                     }
                     var res = nextMove(tab);
@@ -65,7 +59,6 @@ app.controller('MainController', function($scope, service, $interval) {
     }
 
     function nextMove(tab) {
-        //Récupération du coup à jouer par l'IA puis appel de goPlay
         var res = model.moveAI(tab);
         return (res);
     }

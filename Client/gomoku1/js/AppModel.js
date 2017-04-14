@@ -84,47 +84,44 @@ var AppModel = function() {
 
     this.setStartData = function(a, tab) { // Начальные установки для каждой новой игры les reglages initiaux pour chaques nouveaux jeux
         console.log("setStartData");
-        this.who = false;
-        // this.matrix = list;
-        this.matrix = [];
-        this.winLine = [];
+
+        this.who = true;
         this.hashStep = { 9: { 9: { sum: 0, attack: 1, defence: 0, attackPattern: 0, defencePattern: 0 } } }; // первый шаг, если АИ играет за Х le premier pion jouer par l'intelligence artificiel
+        this.matrix = tab
+        this.winLine = [];
         this.freeCells = this.size * this.size; // le nombre de cellule libre
-        for (var n = 0; n < this.size; n++) {
-            this.matrix[n] = [];
-            for (var m = 0; m < this.size; m++) {
-                this.matrix[n][m] = 0;
-            }
-        }
         this.step = 0;
         this.playing = true;
-        // if (a === 2)
-        //     console.log('New Game! X - AI, O - user');
-        // else
-        //     console.log('New Game! X - user, O - AI');
     };
 
-    // this.setNM = function(a) { // Установка координат текущего хода defini les coordonnées en temps de jeu
-    //     console.log("setNM");
-    //     this.n = a.n;
-    //     this.m = a.m;
-    // };
 
-    // this.emptyCell = function() { // Проверка ячейки на доступность для хода verification des cellules
-    //     console.log("emptyCell");
-    //     return this.matrix[this.n][this.m] === 0;
-    // };
+    this.setNM = function(a) { // Установка координат текущего хода defini les coordonnées en temps de jeu
+        console.log("setNM");
+        this.n = a.n;
+        this.m = a.m;
+    };
 
-    // this.moveUser = function() { // Ход пользователя mouvement de lutilisateur
-    //     console.log("moveUser");
-    //     this.playing = false; // Запрещаем кликать, пока идет расчет
-    //     return this.move(this.n, this.m, false);
-    // };
+    this.emptyCell = function() { // Проверка ячейки на доступность для хода verification des cellules
+        console.log("emptyCell");
+        if (this.matrix[this.n][this.m] === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
-    this.moveAI = function() { // Ход АИ la progression de l'intelligence artificielle
+    this.moveUser = function() { // Ход пользователя mouvement de lutilisateur
+        console.log("moveUser");
+        this.playing = false; // Запрещаем кликать, пока идет расчет
+        return this.move(this.n, this.m, false);
+    };
+
+    this.moveAI = function(tab) { // La progression de l'intelligence artificielle
+        this.matrix = tab;
+
         console.log("MoveAI");
-        // this.matrix = tab;
         console.log(this.matrix);
+
         this.playing = false;
         var n, m;
         var max = 0;
@@ -142,6 +139,14 @@ var AppModel = function() {
         var movenow = goodmoves[getRandomInt(0, goodmoves.length - 1)]; // Выбор хода случайным образом, если несколько ходов на выбор fait le choix au hasard, si il ya quelque mouvement au choix
         this.n = movenow.n;
         this.m = movenow.m;
+
+        // if (this.emptyCell() === false) {
+        //     goodmoves[getRandomInt(2, goodmoves.length - 1)]; // Выбор хода случайным образом, если несколько ходов на выбор fait le choix au hasard, si il ya quelque mouvement au choix
+        //     this.n = movenow.n;
+        //     this.m = movenow.m;
+
+        // }
+
         console.log("MoveAI | n : " + this.n, "m : " + this.m);
         return this.move(this.n, this.m, true);
     };
